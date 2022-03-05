@@ -1,0 +1,22 @@
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+
+  font: inherit;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}

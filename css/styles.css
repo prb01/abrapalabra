@@ -1,0 +1,110 @@
+@font-face {
+  font-family: "Bebas";
+  /* font-display: block; */
+  /* font-weight: 900; */
+  src: url("../webfonts/Bebas-Regular.ttf")}
+
+:root {
+  --darkest-gray: hsl(0, 0%, 10%);
+  --dark-gray: hsl(0, 0%, 20%);
+  --light-gray: hsl(0, 0%, 60%);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 1em;
+  background-color: var(--darkest-gray);
+  font-family: "Bebas", sans-serif;
+  font-size: clamp(.75rem, 3vmin, 2rem);
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.5em));
+  grid-auto-rows: 2em;
+  gap: .25em;
+  justify-content: center;
+}
+
+.key {
+  grid-column: span 2;
+  background-color: hsl(
+    var(--hue, 0), 
+    var(--saturation, 0%), 
+    calc(var(--lightness-offset, 0%) + var(--lightness, 90%))
+    );
+  border-radius: .25em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key:hover, .key:focus {
+  --lightness-offset: 10%;
+}
+
+.space {
+  grid-column: span 1;
+}
+
+.key.wide {
+  grid-column: span 3;
+}
+
+.key.incorrect {
+  --lightness: 35%;
+}
+
+.key.near {
+  --hue: 50;
+  --saturation: 50%;
+  --lightness: 50%;
+}
+
+.key.correct {
+  --hue: 140;
+  --saturation: 50%;
+  --lightness: 35%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, 4em);
+  grid-template-rows: repeat(6, 4em);
+  gap: .25em;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 1; 
+  margin-bottom: 1em;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: .01em solid var(--dark-gray);
+  color: white;
+  font-size: 3em;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.tile[state="active"] {
+  border: .01em solid var(--light-gray);
+}
+
+.tile[state="incorrect"] {
+  border: none;
+  background-color: hsl(0, 0%, 35%);
+}
+
+.tile[state="near"] {
+  border: none;
+  background-color: hsl(50, 50%, 50%);
+}
+
+.tile[state="correct"] {
+  border: none;
+  background-color: hsl(140, 50%, 35%);
+}
