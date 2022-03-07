@@ -18,7 +18,7 @@ body {
   padding: 1em;
   background-color: var(--darkest-gray);
   font-family: "Bebas", sans-serif;
-  font-size: clamp(.75rem, 3vmin, 2rem);
+  font-size: clamp(.75rem, 2.5vmin, 2rem);
 }
 
 .keyboard {
@@ -126,6 +126,7 @@ body {
   padding: .5em;
   margin-bottom: .5em;
   border-radius: .25em;
+  text-align: center;
   background-color: var(--lightest-gray);
   pointer-events: none;
   opacity: 1;
@@ -134,6 +135,10 @@ body {
 
 .alert.hide {
   opacity: 0;
+}
+
+.tile.flip {
+  transform: rotateY(90deg);
 }
 
 .tile.shake {
@@ -162,6 +167,27 @@ body {
   }
 }
 
-.tile.flip {
-  transform: rotateY(90deg);
+.tile.jump {
+  animation: jump 500ms ease-in-out;
+}
+
+@keyframes jump {
+  20% {
+    transform: translateY(-50%);
+  }
+  40% {
+    transform: translateY(5%);
+  }
+  60% {
+    transform: translateY(-30%);
+  }
+  80% {
+    transform: translateY(-2%);
+  }
+  90% {
+    transform: translateY(-15%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
 }
