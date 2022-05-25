@@ -1,0 +1,19 @@
+{
+  "name": "abrapalabra",
+  "version": "1.0.0",
+  "description": "Word guessing game in Spanish",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prb01/abrapalabra.git"
+  },
+  "author": "Patrick R Bergstroem",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prb01/abrapalabra/issues"
+  },
+  "homepage": "https://github.com/prb01/abrapalabra#readme"
+}
