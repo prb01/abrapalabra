@@ -3,9 +3,9 @@ name: Deployment pipeline
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:    
-    branches: [master]    
+    branches: [main]    
     types: [opened, synchronize]
 
 jobs:
@@ -76,3 +76,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
           DEFAULT_BUMP: patch
+  health_check:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-latest
+    steps:
+      - name: URL Health Check
+        uses: Jtalk/url-health-check-action@v2
+        with:
+          url: https://abrapalabra.netlify.app/
+          max-attempts: 3
+          retry-delay: 5s
