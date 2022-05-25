@@ -78,6 +78,7 @@ jobs:
           DEFAULT_BUMP: patch
   health_check:
     needs: [simple_deployment_pipeline]
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: URL Health Check
