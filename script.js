@@ -13,13 +13,13 @@ let targetWord = ""
 
 const importDictionary = (file) => {
   fetch(file)
-  .then(r => r.text())
-  .then(text => {
-    text.split('\n').forEach( word => {
-      dictionary.push(word)
+    .then((r) => r.text())
+    .then((text) => {
+      text.split("\n").forEach((word) => {
+        dictionary.push(word)
+      })
     })
-  })
-  .then( () => setTargetWord())
+    .then(() => setTargetWord())
 }
 
 const setTargetWord = () => {
@@ -36,13 +36,13 @@ const stopInteraction = () => {
   document.removeEventListener("keydown", handleKeyDown)
 }
 
-const handleClick = e => {
+const handleClick = (e) => {
   if (e.target.matches("[data-key]")) {
     switch (e.target.dataset.key) {
-      case 'ENTER':
+      case "ENTER":
         submitGuess()
         return
-      case 'DELETE':
+      case "DELETE":
         deleteLetter()
         return
       default:
@@ -52,12 +52,12 @@ const handleClick = e => {
   }
 }
 
-const handleKeyDown = e => {
+const handleKeyDown = (e) => {
   switch (true) {
     case /Enter/.test(e.key):
       submitGuess()
       return
-    case /Backspace/.test(e.key): 
+    case /Backspace/.test(e.key):
     case /Delete/.test(e.key):
       deleteLetter()
       return
@@ -69,7 +69,7 @@ const handleKeyDown = e => {
   }
 }
 
-const pressKey = key => {
+const pressKey = (key) => {
   const activeTiles = getActiveTiles()
   if (activeTiles.length >= WORD_LEN) return
 
@@ -83,7 +83,7 @@ const deleteLetter = () => {
   const activeTiles = getActiveTiles()
   const lastTile = activeTiles[activeTiles.length - 1]
 
-  if (lastTile == null) return
+  if (lastTile === null) return
   lastTile.textContent = ""
   delete lastTile.dataset.state
   delete lastTile.dataset.letter
@@ -96,8 +96,8 @@ const submitGuess = () => {
     shakeTiles(activeTiles)
     return
   }
-  
-  const guess = activeTiles.map(el => el.dataset.letter).join("")
+
+  const guess = activeTiles.map((el) => el.dataset.letter).join("")
 
   if (!dictionary.includes(guess)) {
     showAlert("No es una palabra")
@@ -107,23 +107,29 @@ const submitGuess = () => {
 
   stopInteraction()
   activeTiles.forEach((...params) => flipTile(...params, guess))
-  activeTiles.at(-1).addEventListener("transitionend", () => {
-    if (checkWinLose(guess, activeTiles)) {
-      stopInteraction()
-      return
-    }
+  activeTiles.at(-1).addEventListener(
+    "transitionend",
+    () => {
+      if (checkWinLose(guess, activeTiles)) {
+        stopInteraction()
+        return
+      }
 
-    startInteraction()
-  }, { once: true })
+      startInteraction()
+    },
+    { once: true }
+  )
 }
 
-const flipTile = (tile, idx, arr, guess) => {
+const flipTile = (tile, idx) => {
   const letter = tile.dataset.letter
-  const key = keyboard.querySelector(`[data-key="${letter.toUpperCase()}"]`)
+  const key = keyboard.querySelector(
+    `[data-key="${letter.toUpperCase()}"]`
+  )
 
   setTimeout(() => {
     tile.classList.add("flip")
-  }, idx * FLIP_DURATION / 2 )
+  }, (idx * FLIP_DURATION) / 2)
 
   tile.addEventListener("transitionend", () => {
     tile.classList.remove("flip")
@@ -141,16 +147,16 @@ const flipTile = (tile, idx, arr, guess) => {
 }
 
 const getActiveTiles = () => {
-  return grid.querySelectorAll('[data-state="active"')
+  return grid.querySelectorAll("[data-state='active']")
 }
 
 const showAlert = (msg, duration = 1000) => {
-  const alert = document.createElement('div')
+  const alert = document.createElement("div")
   alert.innerHTML = msg
   alert.classList.add("alert")
   alertContainer.prepend(alert)
 
-  if (duration == null) return
+  if (duration === null) return
   setTimeout(() => {
     alert.classList.add("hide")
     alert.addEventListener("transitionend", () => {
@@ -159,12 +165,16 @@ const showAlert = (msg, duration = 1000) => {
   }, duration)
 }
 
-const shakeTiles = tiles => {
-  tiles.forEach(tile => {
+const shakeTiles = (tiles) => {
+  tiles.forEach((tile) => {
     tile.classList.add("shake")
-    tile.addEventListener("animationend", () => {
-      tile.classList.remove("shake")
-    }, { once: true })
+    tile.addEventListener(
+      "animationend",
+      () => {
+        tile.classList.remove("shake")
+      },
+      { once: true }
+    )
   })
 }
 
@@ -176,7 +186,7 @@ const checkWinLose = (guess, tiles) => {
   }
 
   const remainingTiles = grid.querySelectorAll(":not([data-letter])")
-  if (remainingTiles.length === 0 ) {
+  if (remainingTiles.length === 0) {
     showAlert(`${targetWord.toUpperCase()}<BR>Perdiste :(`, null)
     return true
   }
@@ -184,16 +194,20 @@ const checkWinLose = (guess, tiles) => {
   return false
 }
 
-const jumpTiles = tiles => {
+const jumpTiles = (tiles) => {
   tiles.forEach((tile, idx) => {
     setTimeout(() => {
       tile.classList.add("jump")
-      tile.addEventListener("animationend", () => {
-        tile.classList.remove("jump")
-      }, { once: true })
-    }, idx * JUMP_DURATION / 3)
+      tile.addEventListener(
+        "animationend",
+        () => {
+          tile.classList.remove("jump")
+        },
+        { once: true }
+      )
+    }, (idx * JUMP_DURATION) / 3)
   })
 }
 
-importDictionary('/palabras.txt')
+importDictionary("/palabras.txt")
 startInteraction()
