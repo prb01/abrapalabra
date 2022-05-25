@@ -4,7 +4,8 @@
   "description": "Word guessing game in Spanish",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint './*.{js,jsx}'"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/prb01/abrapalabra/issues"
   },
-  "homepage": "https://github.com/prb01/abrapalabra#readme"
+  "homepage": "https://github.com/prb01/abrapalabra#readme",
+  "dependencies": {
+    "eslint": "^8.16.0"
+  }
 }
